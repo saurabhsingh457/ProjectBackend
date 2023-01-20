@@ -52,7 +52,7 @@ postRoute.delete("/delete/:Id",async(req,res)=>{
     const {Id}=req.params
     const data=req.body
     let datas=await PostsModel.findOne({_id:Id})
-     l
+     
     const uid=datas.userId
     const nid=req.body.userId
     if(uid==nid){

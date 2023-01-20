@@ -10,23 +10,23 @@ userRoute.post("/register", async (req, res) => {
 let data=await UserModel.findOne({email})
 if(data){
     console.log("already present try with different email")
-    res.send("already present try diffrent email")
+    res.json("already present try diffrent email")
 }else{
     try {
         bcrypt.hash(pass, 5,async (err, securepass)=> {
             if(err){
            console.log(err)
-           res.send(err)
+           res.json(err)
             }else{
                 const user=new UserModel({   name,email, gender,  pass:securepass })
                 await user.save()
-                res.send("registerd succesfully")
+                res.json("registerd succesfully")
                 console.log("registerd successfully")
             }
         });
     } catch (error) {
         console.log(error)
-        res.send("error while registering")
+        res.json("error while registering")
     }
 }
     
@@ -44,20 +44,20 @@ try {
         bcrypt.compare(pass, securepass, (err, result) =>{
             if(result){
             var token = jwt.sign({ userId: user[0]._id }, 'secret');
-            res.send(token)
+            res.json(token)
             console.log(token)
             }else{
                 console.log('wrong details')
-                res.send("wrong detail")
+                res.json("wrong detail")
             }
         });
     }else{
-        res.send("problem in login")
+        res.json("problem in login")
         console.log("problem in login")
     }
 } catch (error) {
     console.log(error)
-    res.send("problem while login")
+    res.json("problem while login")
 }
 
     
