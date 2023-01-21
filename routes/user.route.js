@@ -62,5 +62,12 @@ try {
 
     
 })
+userRoute.get("/get",async(req,res)=>{
+
+
+    let postdata=await UserModel.find()
+    console.log(postdata)
+    res.json(postdata)
+})
 
 module.exports={userRoute}

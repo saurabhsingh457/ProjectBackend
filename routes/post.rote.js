@@ -4,31 +4,31 @@ const jwt = require("jsonwebtoken")
 const {PostsModel} = require("../models/posts.model")
 const postRoute = express.Router()
 
-postRoute.get("/get",async(req,res)=>{
+postRoute.get("/getdata",async(req,res)=>{
 
 
     let postdata=await PostsModel.find()
     console.log(postdata)
-    res.send(" posts data")
+    res.json(postdata)
 })
 postRoute.get("/filter",async(req,res)=>{
     const {device}=req.query
     let postdata=await PostsModel.find({device:device})
     console.log(postdata)
-    res.send(" filterd data data")
+    res.json(postdata)
 })
 postRoute.get("/filters",async(req,res)=>{
     const {device1,device2}=req.query
     let postdata=await PostsModel.find({device:device1,device:device2})
     console.log(postdata)
-    res.send(" filter by 2 data")
+    res.json(postdata)
 })
 
 postRoute.post("/post",async(req,res)=>{
     const data=req.body
     let postdata=await PostsModel.insertMany(data)
     console.log(postdata)
-    res.send(" post data")
+    res.json(postdata)
 })
 
 postRoute.patch("/update/:Id",async(req,res)=>{
@@ -42,10 +42,10 @@ postRoute.patch("/update/:Id",async(req,res)=>{
     if(uid==nid){
     const postdata=await PostsModel.findByIdAndUpdate({_id:Id},data)
     console.log(postdata)
-    res.send(" update data")
+    res.json(" update data")
     }else{
         console.log("not verify")
-        res.send("not verify")
+        res.json("not verify")
     }
 })
 postRoute.delete("/delete/:Id",async(req,res)=>{
@@ -60,10 +60,10 @@ postRoute.delete("/delete/:Id",async(req,res)=>{
     // const uid=
     const postdata=await PostsModel.findByIdAndDelete({_id:Id},data)
     console.log(postdata)
-    res.send(" delete data")
+    res.json(" delete data")
     }else{
         console.log("not verify")
-        res.send("not verify")
+        res.json("not verify")
     }
 })
 
