@@ -13,7 +13,6 @@ app.use(express.json())
 
 const { userRoute } = require("./routes/user.route")
 
-
 app.use("/users",userRoute)
 app.get("/",(req,res)=>{
     res.send("hello")
