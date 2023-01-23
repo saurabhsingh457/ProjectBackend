@@ -7,9 +7,13 @@ const postRoute = express.Router()
 postRoute.get("/getdata",async(req,res)=>{
 
 
+  try {
     let postdata=await PostsModel.find()
     console.log(postdata)
     res.json(postdata)
+  } catch (error) {
+    console.log(error)
+  }
 })
 postRoute.get("/filter",async(req,res)=>{
     const {device}=req.query
@@ -67,7 +71,12 @@ postRoute.delete("/delete/:Id",async(req,res)=>{
     }
 })
 
-
+postRoute.get("/find",async (req,res)=>{
+    let find=req.query.q
+   const postdata= await PostsModel.find({p:{$regex: find, $options:'i'}})
+    console.log(postdata)
+    res.json(postdata)
+})
 
 
 
